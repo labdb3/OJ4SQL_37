@@ -20,6 +20,7 @@ mysql_template = """
     CREATE DATABASE if not exists {db};
     CREATE USER IF NOT EXISTS {username} identified BY '{passwd}';
     grant ALL PRIVILEGES on {db}.* to {username}@'%';
+    alter user '{username}'@'%' identified by '{passwd}';
     flush privileges;
 """
 
@@ -89,7 +90,10 @@ def add_user_db_learnsql(id_name):
             sqls = mysql_template.format(
                 db="stu"+id, username="stu"+id, passwd="stu"+id)
             for sql in sqls.split(";")[:-1]:
-                conn.execute(sql)
+                try:
+                    conn.execute(sql)
+                except Exception as e:
+                    pass
 
     with db_conn.PostgresqlConn(host=config.LearnSql_Postgresql_IP,
                                 port=config.LearnSql_Postgresql_PORT,
@@ -100,7 +104,10 @@ def add_user_db_learnsql(id_name):
         for id, name in id_name:
             sqls = postgres_template.format(username="stu"+id, passwd="stu"+id)
             for sql in sqls.split(";")[:-1]:
-                conn.execute(sql)
+                try:
+                    conn.execute(sql)
+                except Exception as e:
+                    pass
 
 
 def add_user_db_practise(id_name):
@@ -114,7 +121,10 @@ def add_user_db_practise(id_name):
             sqls = mysql_template.format(
                 db="stu"+id, username="stu"+id, passwd="stu"+id)
             for sql in sqls.split(";")[:-1]:
-                conn.execute(sql)
+                try:
+                    conn.execute(sql)
+                except Exception as e:
+                    pass
 
     # with db_conn.PostgresqlConn(host=config.Practise_Postgresql_IP,
     #                             port=config.Practise_Postgresql_PORT,
@@ -140,7 +150,10 @@ def add_user_db_learncase(id_name):
             sqls = mysql_template.format(
                 db="stu"+id, username="stu"+id, passwd="stu"+id)
             for sql in sqls.split(";")[:-1]:
-                conn.execute(sql)
+                try:
+                    conn.execute(sql)
+                except Exception as e:
+                    pass
 
     with db_conn.PostgresqlConn(host=config.Learncase_Postgresql_IP,
                                 port=config.Learncase_Postgresql_PORT,
@@ -152,7 +165,10 @@ def add_user_db_learncase(id_name):
             sqls = learncase_postgres_template.format(
                 username="stu"+id, passwd="stu"+id)
             for sql in sqls.split(";")[:-1]:
-                conn.execute(sql)
+                try:
+                    conn.execute(sql)
+                except Exception as e:
+                    pass
 
 
 def grant(id_name):
@@ -191,21 +207,21 @@ if __name__ == '__main__':
     args = get_args()
     id_name = read_data(args.fileName)
     
-    print(id_name)
+    #print(id_name)
     #add_user_db_practise(id_name)
     #grant(id_name)
     
-    # if args.add_user_account:
-    #     add_user_account(id_name)
+    if args.add_user_account:
+        add_user_account(id_name)
 
-    # if args.add_user_db_learnsql:
-    #     add_user_db_learnsql(id_name)
+    if args.add_user_db_learnsql:
+        add_user_db_learnsql(id_name)
 
-    # if args.add_user_db_learncase:
-    #     add_user_db_learncase(id_name)
+    if args.add_user_db_learncase:
+        add_user_db_learncase(id_name)
 
-    # if args.add_user_db_practise:
-    #     add_user_db_practise(id_name)
+    if args.add_user_db_practise:
+        add_user_db_practise(id_name)
 
 
 
