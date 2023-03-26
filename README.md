@@ -2,6 +2,11 @@
 
 An Online Judge Sysetm for Database Courses
 
+## 关于pg 和 og 
+
+因为华为服务器总是有很奇怪的问题，包括重启之后文件莫名回退到历史的更改，mac or windows 远程连接之后无法正常修改文件，操作系统为华为自研导致常规命令无法执行，后期只在oj 模块提供mysql,postgresql,其他模块只提供mysql的使用，去掉opengauss 的支持。
+
+
 ## 网站初始化流程
 
 # 1. OJ 部分初始化流程
@@ -51,7 +56,10 @@ gsql -d postgres -U gaussdb -W'root@LAB3'
 
 输入 `sql/opengauss/init.sql` 中的全部语句
 
+
 # 2. learnsql部分初始化流程
+
+关于这部分的初始化，可以直接执行 bash reinit_docker.sh 文件，如遇到某些命令无法执行成功的情况，可以直接copy 命令单独执行
 
 ### mysql
 
@@ -134,6 +142,9 @@ docker exec -it practise_postgres psql -U postgres -W
 
 create database practise_pg_database;
 ```
+
+当上述docker 容器全部启动之后，可以执行addstudents.py 文件，目前已经添加了异常处理机制，添加重复的学生时会直接忽略。
+PYTHONPATH=/home/fcg/deploy/OJ4SQL2021 python addstudents.py --add_user_account --add_user_db_learnsql --add_user_db_learncase --add_user_db_practise
 
 # 5. jupyterhub 配置
 
