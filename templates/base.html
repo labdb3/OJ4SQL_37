@@ -1,0 +1,28 @@
+{% load static %}
+<!doctype html>
+<html lang="zh-hans" class="h-100">
+  <head>
+    <meta charset="utf-8">
+    <title>开发-SQL数据库实践</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/sticky-footer-navbar.css' %}" rel="stylesheet">
+    <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/mustache.min.js' %}"></script>
+
+    <link href="{% static 'css/hilight_box.css' %}" rel="stylesheet">
+  </head>
+
+  <body class="d-flex flex-column h-100">
+
+    {% block body %}{% endblock %}
+    {% block bodytail %}{% endblock %}
+
+
+  </body>
+</html>

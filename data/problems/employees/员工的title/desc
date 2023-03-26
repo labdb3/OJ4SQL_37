@@ -1,0 +1,16 @@
+
+选做。11027号员工有过三个不同的title， 将其按如下表格形式输出：
+<table border="1">
+<tr>
+<th>emp_no</th>
+<th>tenure1</th>
+<th>tenure2</th>
+<th>tenure3</th>
+</tr>
+<tr>
+<td>11027</td>
+<td> 1986-05-07~1991-05-07\nAssistant Engineer </td>
+<td>...</td>
+<td>...</td>
+</tr>
+</table>

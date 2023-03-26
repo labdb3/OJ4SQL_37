@@ -1,0 +1,1 @@
+查出所有商品的没有打折之前的销售额NonDiscountSales，打折之后的销售额Discounts，按ProductName逆序返回。输出格式为(ProductName,NonDiscountSales,Discounts)

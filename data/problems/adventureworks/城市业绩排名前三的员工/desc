@@ -1,0 +1,1 @@
+定义每个员工参与的所有订单的总销售额(sum(LineTotal))作为员工的业绩，列出每个城市的业绩排名前三的员工,涉及表(salesorderheader,salesorderdetail,address,businessentutyaddress)。输出格式为(city,SalesPersonID)

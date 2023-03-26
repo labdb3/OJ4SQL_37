@@ -1,0 +1,1 @@
+查出总销量大于5的产品ID，并按总销量排序。涉及表：salesorderdetail。输出格式为(ProductID,count[=sum(OrderQty])

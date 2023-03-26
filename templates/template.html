@@ -1,0 +1,184 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+  <header>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
+      <div class="container">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarCollapse"
+          aria-controls="navbarCollapse"
+          aria-expanded="false"
+          aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="/" style="margin-left:300px;">
+          <img id="barimg" src="{% static 'imgs/bar.webp' %}" alt="" style="max-height: 60px;width=300px;">
+        </a>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav mr-auto"></ul>
+          <ul class="nav navbar-nav navbar-right">
+            {% if request.session.is_login %}
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdownMenuLink"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false">
+                  {{ request.session.nickname }}
+                  {{ request.session.username }}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  {#                  <a class="dropdown-item" href="#">我的空间</a>#}
+                  <a class="dropdown-item" data-toggle="modal" data-target="#changePasswordModal">
+                    修改密码</a>
+                  <a class="dropdown-item" href="{% url 'user:logout' %}">
+                    登出</a>
+                </div>
+              </li>
+            {% else %}
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="modal" data-target="#loginModal">
+                  登录</a>
+              </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Login modal -->
+  <div
+    class="modal fade"
+    id="loginModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">
+            登录</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">
+              &times;</span>
+          </button>
+        </div>
+        <form class="form" method="post" action="{% url 'user:login' %}">
+          {% csrf_token %}
+          <div class="modal-body">
+            <div class="form-label-group">
+              <label for="username" class="col-form-label">
+                账号</label>
+              <input
+                name="username"
+                type="text"
+                id="username"
+                class="form-control"
+                placeholder="账号"
+                required="required"
+                autofocus="autofocus">
+            </div>
+            <div class="form-label-group">
+              <label for="password" class="col-form-label">
+                密码</label>
+              <input name="password" type="password" id="password" class="form-control" placeholder="密码" required="required">
+            </div>
+
+            <div class="checkbox mt-3">
+              <label>
+                <input name="remember" type="checkbox" value="1">
+                记住我</label>
+            </div>
+
+            <input type="hidden" name="login_from" value="{{ request.path }}">
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+              关闭</button>
+            <button type="submit" class="btn btn-primary">
+              登录</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Change password modal -->
+  <div
+    class="modal fade"
+    id="changePasswordModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">
+            修改密码</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">
+              &times;</span>
+          </button>
+        </div>
+        <form class="form" method="post" action="{% url 'user:change_password' %}">
+          {% csrf_token %}
+          <div class="modal-body">
+            <div class="form-label-group">
+              <label for="cur_password" class="col-form-label">
+                当前密码</label>
+              <input name="cur_password" type="password" id="cur_password" class="form-control" placeholder="密码" required="required">
+            </div>
+
+            <div class="form-label-group">
+              <label for="new_password" class="col-form-label">
+                新密码</label>
+              <input name="new_password" type="password" id="new_password" class="form-control" placeholder="密码" required="required">
+            </div>
+
+            <div class="form-label-group">
+              <label for="re_password" class="col-form-label">
+                确认密码</label>
+              <input name="re_password" type="password" id="re_password" class="form-control" placeholder="密码" required="required">
+            </div>
+            <input type="hidden" name="from_url" value="{{ request.path }}">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+              关闭</button>
+            <button type="submit" class="btn btn-primary">
+              修改密码</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Begin page content -->
+  <main role="main" class="flex-shrink-0">
+    <div class="container">
+      <div class="mt-2">
+        {% block content %}{% endblock %}
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer mt-auto py-3">
+    <div class="container text-center">
+      <span class="text-muted">
+        数据库概论课程</span>
+    </div>
+  </footer>
+
+{% endblock %}

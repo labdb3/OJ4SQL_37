@@ -1,0 +1,54 @@
+主要包括以下信息：
+用户个人信息。
+解答记录。
+题目。
+
+问题表(问题ID，题目，描述，访问控制，所属用户(创建人))
+Problem(pid serial, title text, description text, permissions tinyint unsigned, ownerid integer)
+问题数据文件：
+data/pid/pgtest.py
+	/guassdbtest.py
+	/mysqltest.py
+	/*.csv
+
+*gaussdb的数据类型有些不同，所以以sql/ojmanager/create_tables.sql为准*
+用户表(用户ID，昵称，姓名，学号，加密密码)
+User(uid serial, nickname text, name text, accountname text, studentid text, passwd text)
+
+组表(组ID，组名，组描述)
+Group(gid serial, name text, description text)
+
+题目所属组表(问题ID，组ID)
+ProblemGroup(pid integer, gid integer)
+
+用户所属组表(用户ID，组ID)
+UserGroup(uid integer, gid integer)
+
+提交记录(提交ID, 用户ID，题目ID，提交代码，结果，返回信息，用时ms, 提交时间)
+Submissions(sid bigserial, uid integer, pid integer, code text, resulttype char(2), info text, time smallint, datetime date)
+resulttype:(Accepted AC,TIMEOUT TM,WRONGANSWER WA, ToGrade TG)
+
+访问控制：r代表可查看问题，w代表可编辑，x代表可提交代码。其它用户没有w权限，故用8个bit表示。 默认:111 101 11。
+所属用户的权限方便管理题目编写者对题目的修改权限
+TODO: ProblemGroup也应该有一个权限设置，表示该组对该题目的权限，方便按组进行管理和提交。
+用户访问题目，先看是否是该题目的拥有者，如果是按照拥有者权限进行控制，如果不是，看是否用户和题目同属一个组，如果是按所属组用户权限处理，如果不是，按照其他人权限处理。
+
+能够处理所有增删改查的题目。
+权限控制：多个数据库用户具有不同权限，每个数据库用户在同一时间只执行一个任务。
+
+解答评价过程：
+对于涉及对表格改动的题目，将被改动的表复制到该用户。执行sql。将处理后的表与标准答案的表进行对比。
+对于涉及创建表格的题目。执行sql。将创建后的表与标准答案进行对比。
+对于只涉及表格查询的题目，可以进行优化。
+
+初始化(教师提供代码和数据文件)->执行sql代码(学生解答)->返回语法错误和运行时错误。
+初始化(教师提供)->执行sql代码(学生解答)->评价代码(教师提供代码和数据文件)->返回解答正确性。
+
+test.py:
+	problem_init() 问题新建时对数据库进行操作，初始化该问题相关的只读表格。
+	init() 每次对提交评测时先调用，主要初始化该问题相关的并且接下来会被改动的表格，然后执行学生解答的sql
+	evaluate()对解答sql的运行结果进行评测。
+	postprocess() 清理	
+clean()清理用户新建的表格。
+
+数据库用户：student(c/s), teacher(评判学生写的sql), ojmanager(管理老师和学生)

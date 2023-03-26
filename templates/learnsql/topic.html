@@ -1,0 +1,144 @@
+{% extends "learnsql/nav_second.html" %}
+{% load static %}
+
+{% block bodycont %}
+<div class="setting">
+	<span>SQL引擎: </span>
+	<select id="engine">
+		<option value="mysql" {% if sqltype == 'mysql' %} selected {% endif %}>MySQL</option>
+		<option value="postgresql" {% if sqltype == 'postgresql' %} selected {% endif %}>PostgreSQL</option>
+	</select>
+</div>
+{% endblock %}
+
+{% block content %}
+{% csrf_token %}
+<div class="data-tables">
+	<ul class="tables">
+		{% for table in tables%}
+		<li>
+			<table>
+				<caption>{{table.0}}</caption>
+				<tr>
+					{% for col_name in table.2%}
+					<th>{{col_name}}</th>
+					{% endfor %}
+				</tr>
+				{% for row in table.3%}
+				<tr>
+					{% for col in row%}
+					<td>{{col}}</td>
+					{% endfor %}
+				</tr>
+				{% endfor %}
+			</table>
+			{{table.1}}
+			<br>
+		</li>
+		{% endfor %}
+	</ul>
+</div>
+
+<div class="problems">
+	<ol class="problems-ol">
+		{% for p in problems %}
+		<li>
+			<div class="problem-title" pid="{{p.0}}">
+				{{p.1}}
+			</div>
+			<div class="problem-details">
+				<div class="problem-desc-sql-container">
+					<div class="problem-desc">
+						{{p.2}}
+					</div>
+					<form>
+						<textarea rows="8" cols="40" class="SQLarea" autocomplete="off">{{p.3}}</textarea>
+						<button type="button" class="submitSQL" onclick="submitSQL(this);">提交SQL</button>
+					</form>
+				</div>
+				<div class="result-table-container">
+					<h2>查询结果</h2>
+					<div class="result-table">
+						<table>
+						</table>
+					</div>
+				</div>
+			</div>
+		</li>
+		{% endfor %}
+	</ol>
+</div>
+<script src="{% static 'js/learnsql.js' %}"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="{% static 'js/mustache.min.js' %}"></script>
+<script>
+	async function sendData(dataDict, url, method = 'POST') {
+		let result;
+		console.log(document.cookie)
+		cookie_datas = {}
+		for(let kv of document.cookie.split(";")){
+			let k=kv.split("=")[0];
+			let v=kv.split("=")[1];
+			cookie_datas[k]=v;
+		}
+		console.log(cookie_datas)
+
+		let csrftoken = cookie_datas["csrftoken"];
+		
+		await axios({
+			method: 'post',
+			url: url,
+			headers: { 'content-type': 'application/json', "X-CSRFToken": csrftoken },
+			data: dataDict
+		}).then(function(response){
+			result=response.data;
+			console.log(result)
+		});
+		return result;
+	}
+
+	function submitSQL(that) {
+		let sql = that.parentNode.getElementsByClassName('SQLarea')[0].value.trim();
+		let li = that.closest('li');
+		let pid = li.getElementsByClassName('problem-title')[0].attributes.pid.value;
+		let sqltype = document.getElementById('engine').value;
+		payload = {
+			sql: sql,
+			sqltype: sqltype
+		}
+		let result = sendData(payload, '/learnsql/submitsql/' + pid);
+		result.then(function(data){
+			console.log(data)
+			let rendered;
+			result = data;
+			let table = li.getElementsByClassName('result-table')[0];
+			if (result.error === undefined && result.status ===undefined) {
+				let view = {
+					items: result.data,
+					headers: [result.fieldNames]
+				};
+				console.log(view)
+				rendered = Mustache.render(tableTemplate, view);
+			} else if (result.status === undefined){
+				let view = {
+					error: result.error
+				};
+				console.log(view)
+				rendered = Mustache.render(errorTemplate, view);
+			}else {
+				let view = {
+					status: result.status
+				};
+				console.log(view)
+				rendered = Mustache.render(statusTemplate, view);
+			}
+			table.innerHTML = rendered;
+		})
+	}
+
+	document.querySelector('#engine').addEventListener('change', function () {
+		window.location.assign(window.location.pathname + '?sqltype=' + document.querySelector('#engine').value);
+
+	});
+</script>
+{% endblock %}

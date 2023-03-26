@@ -1,0 +1,39 @@
+{% extends 'template.html' %}
+{% block content %}
+{% load static %}
+
+<div>
+    <div class="setting" style="position: absolute;right: 100px;top: 100px;">
+        <span>SQL引擎: </span>
+        <select id="engine">
+            <option value="mysql" {% if sqltype == 'mysql' %} selected {% endif %}>MySQL</option>
+            <option value="postgresql" {% if sqltype == 'postgresql' %} selected {% endif %}>PostgreSQL</option>
+        </select>
+    </div>
+
+
+    <div class="container" style="position: absolute;left: 100px;top: 100px;">
+        <div class="hilight-exercises">
+            <h1>
+                <ol>
+                    {% for k,v in datasets.items %}
+                    <li>
+                        <a href="{{v}}">
+                            <h1>{{k}}</h1>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ol>
+
+            </h1>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.querySelector('#engine').addEventListener('change', function () {
+            window.location.assign(window.location.pathname + '?sqltype=' + document.querySelector('#engine').value);
+
+        });
+</script>
+{% endblock %}

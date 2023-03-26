@@ -1,0 +1,1 @@
+找出至少交易过四次的顾客，输出这些顾客对应的订单信息。涉及表(SalesOrderHeader),输出格式为(CustomerID,SalesOrderID,OrderDate)

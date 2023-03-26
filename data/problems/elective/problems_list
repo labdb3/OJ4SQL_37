@@ -1,0 +1,7 @@
+查询Left join excluding inner join部分的内容
+查询full join excluding inner部分的内容
+
+查询成绩最高的学生编号
+查询sc表中grade列不为空值的行数
+查询sc表中的行数
+查询sc表中grade列的总体标准差和样本方差

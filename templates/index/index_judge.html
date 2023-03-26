@@ -1,0 +1,28 @@
+{% extends 'template.html' %}
+{% block content %}
+  {% load static %}
+  <div class="container">
+    <div class="hilight-exercises">
+      <div class="circle-exercise">
+        <a href="problem/2/1">
+          <img src="{% static 'imgs/spj.webp' %}" alt="订单数据库">
+        </a>
+      </div>
+      <div class="circle-exercise">
+        <a href="problem/3/1">
+          <img src="{% static 'imgs/employees.webp' %}" alt="员工数据库">
+        </a>
+      </div>
+      <div class="circle-exercise">
+        <a href="problem/5/1">
+          <img src="{% static 'imgs/adventureworks.webp' %}" alt="订单数据库">
+        </a>
+      </div>
+      <div class="circle-exercise">
+        <a href="problem/4/1">
+          <img src="{% static 'imgs/sc.webp' %}" alt="选课数据库">
+        </a>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>SQL练习主页</title>
+    <link href="{% static 'css/learnsql.css' %}" rel="stylesheet">
+    <title>QL 练习</title>
+
+</head>
+
+<body>
+    {% block bodycont %}{% endblock %}
+    <div class="sidebar">
+        <ul class="topics">
+            {% for secondTopicID,secondTopicInfo in secondTopics.items %}
+            <li class="nav-second-item">
+                {{secondTopicInfo.topicName}}
+            </li>
+            <ul>
+            {% for thirdTopicID,thirdTopicInfo in secondTopicInfo.thirdTopics.items %}
+            <li class="nav-third-item">
+                <a class="topic" href="{% url 'learnsql:topic' thirdTopicID %}">{{thirdTopicInfo.topicName}}</a>
+            </li>
+            {% endfor %}
+            </ul>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="content" id="content">{% block content %}{% endblock %}</div>
+
+</body>
+
+</html>

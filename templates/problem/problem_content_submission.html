@@ -1,0 +1,77 @@
+{% extends 'problem/problem_content.html' %}
+{% block problem_content %}
+  <div class="table-responsive">
+    <table class="table table-striped mt-2" style="border-top: 0">
+      <thead>
+        <tr>
+          <th scope="col" style="width: 20%">
+            提交时间</th>
+          <th scope="col" style="width: 20%">
+            状态</th>
+          <th scope="col" style="width: 20%">
+            运行时间</th>
+          <th scope="col" style="width: 20%">
+            运行空间</th>
+          <th scope="col" style="width: 20%">
+            语言类型</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for sub in submissions %}
+          <tr>
+            <td>
+              <span style="color: grey;">
+                {{sub.datetime}}
+              </span>
+            </td>
+            <td>
+              <a href="{% url 'problem:problem_content_submission_details' sub.sid %}">
+                <span
+                  class="{% if sub.resulttype == 'Accepted' or sub.resulttype == 'Unknown' %}text-success{% elif sub.resulttype == 'None' %}text-warning{% else %}text-danger{% endif %}">
+                  {{sub.resulttype}}</span></a>
+            </td>
+            <td>
+              <span style="color: grey;">
+                {{sub.timespent}}
+                ms</span>
+            </td>
+            <td>
+              <span style="color: grey;">
+                -kb</span>
+            </td>
+            <td>
+              <span style="color: grey;">
+                  {{sub.lang_type}}</span>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="float-right">
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item">
+          <a class="page-link" href="{% url 'problem:problem_content_submission' pid=pid pno=1 %}" aria-label="Previous">
+            <span aria-hidden="true">
+              &laquo;</span>
+          </a>
+        </li>
+        {% for num in page_numbers %}
+          <li class="page-item{% if pno == num %} active{% endif %}">
+            <a class="page-link" href="{% url 'problem:problem_content_submission' pid=pid pno=num %}">
+              {{ num }}
+            </a>
+          </li>
+        {% endfor %}
+        <li class="page-item">
+          <a class="page-link" href="{% url 'problem:problem_content_submission' pid=pid pno=nums_of_pages %}" aria-label="Next">
+            <span aria-hidden="true">
+              &raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+{% endblock %}

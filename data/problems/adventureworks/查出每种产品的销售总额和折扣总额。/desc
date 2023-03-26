@@ -1,0 +1,1 @@
+查出每种产品的销售总额和折扣总额。涉及表：product、salesorderdetail，按产品名升序排列。输出格式(Name, LineTotal, discount[OrderQty*UnitPriceDiscount]))。

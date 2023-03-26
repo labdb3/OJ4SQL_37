@@ -1,0 +1,19 @@
+.hilight-exercises img {
+    max-width: 200px;
+    max-height: 200px;
+    position: absolute;
+    bottom: 0;
+}
+
+.circle-exercise {
+    width: 220px;
+    height: 220px;
+    margin: 20px;
+    position: relative;
+}
+
+.hilight-exercises {
+    display: flex;
+    flex-wrap: wrap;
+}
+

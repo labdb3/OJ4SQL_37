@@ -1,0 +1,16 @@
+选课数据库elective中有六张表：
+student(sno, sname, age, sex, dno, supervisor)
+course(cno, cname, pcno, credit)
+teacher(tno, tname, dno, salary, title)
+department(dno, dname, dean)
+sc(sno, cno, grade)
+tc(tno, cno)
+
+student表示学生表，各属性依次为学生的学号、姓名、年龄、性别、系号及导师。
+course表示课程表，各属性依次为课程的编号、姓名、先行课程号、学分。
+teacher表示教师表，各属性依次为教师的教工号、名字、系号、薪资以及职称。
+department表示部门表，各属性依次为部门的编号、名字及负责老师的教工号。
+sc表示学生选课表，各属性依次为学生学号、课程编号以及成绩。
+tc表示教师授课表，各属性依次为教师教工号及课程编号。
+
+基于以上elective关系模式用SQL完成下面的查询：<br>

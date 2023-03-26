@@ -1,0 +1,31 @@
+{% extends 'template.html' %}
+{% block content %}
+  <div class="card">
+    <div class="card-header">
+      <h1>
+        {{ pid }}
+        .
+        {{ title }}
+      </h1>
+    </div>
+    <div class="card-body">
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a
+            class="nav-link{% if request.path|slice:'16:29' == '/description/' %} active{% endif %}"
+            href="{% url 'problem:problem_content_description' pid %}">
+            题目</a>
+        </li>
+        {% if request.session.is_login %}
+          <li class="nav-item">
+            <a
+              class="nav-link{% if request.path|slice:'16:28' == '/submission/' %} active{% endif %}"
+              href="{% url 'problem:problem_content_submission' pid=pid pno=1 %}">
+              提交记录</a>
+          </li>
+        {% endif %}
+      </ul>
+      {% block problem_content %}{% endblock %}
+    </div>
+  </div>
+{% endblock %}

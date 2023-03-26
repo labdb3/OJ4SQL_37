@@ -1,0 +1,124 @@
+{% extends 'problem/problem_content.html' %}
+{% load static %}
+{% block problem_content %}
+  <div class="card mt-3">
+    <div class="card-body">
+      <div class="row">
+        {% if exec_user and do_eval %}
+          <div class="col-6">
+            <span style="color: grey;">
+              提交结果：</span>
+            <span
+              class="{% if resulttype == 'Accepted' %}text-success{% elif resulttype == 'None' %}text-warning{% else %}text-danger{% endif %}">
+              {{ resulttype }}</span></a>
+        </td>
+      </div>
+      <div class="col-6">
+        <span style="color: grey;">
+          通过了
+        </span>
+        <span>
+          {% if resulttype == 'Accepted' %}
+            1{% else %}
+            0{% endif %}
+          / 1 个数据</span>
+      </div>
+    {% endif %}
+    {% if exec_user %}
+      <div class="col-6">
+        <span style="color: grey;">
+          运行时间：</span>
+        <span>
+          {{ timespent }}
+          ms</span>
+      </div>
+    {% endif %}
+    <div class="col-6">
+      <span style="color: grey;">
+        提交时间：</span>
+      <span>
+        {{ datetime }}
+      </span>
+    </div>
+    <div class="col-6">
+      <span style="color: grey;">
+        提交类型：</span>
+      <span>
+        {{ lang_type }}
+      </span>
+    </div>
+    {% if info %}
+
+      <div class="col-12">
+        <span style="color: grey;">
+          提示信息：</span>
+        <span>
+          {{ info }}
+        </span>
+      </div>
+    {% endif %}
+  </div>
+</div>
+</div>
+<hr>
+<div id="editor_div" style="position: relative; height: 200px; width: 100%;">
+<div id="editor" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; font-size: 14px">
+  {{ code }}
+</div>
+</div>
+<div class="user_result">
+{% if echo_result %}
+  <table class="table table-bordered table-sm">
+    <tr>
+      {% for field in user_result.fieldNames %}
+        <th class="fit">
+          {{field}}
+        </th>
+      {% endfor %}
+    </tr>
+    {% for row in user_result.data|slice:":100" %}
+      <tr>
+        {% for cell in row %}
+          <td class="fit">
+            {{cell}}
+          </td>
+        {% endfor %}
+      </tr>
+    {% endfor %}
+  </table>
+  {% if user_result.data|length > 100 %}
+    ...
+  {% endif %}
+{% endif %}
+</div>
+{% if display_anssql %}
+<span style="color: grey;">
+  标准答案：</span>
+<div id="editor_div_anssql" style="position: relative; height: 200px; width: 100%;">
+  <div id="editor_anssql" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; font-size: 14px">
+    {{ anssql }}
+  </div>
+</div>
+{% endif %}
+<script src="{% static 'js/ace.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/ext-language_tools.js' %}" type="text/javascript" charset="utf-8"></script>
+<script>
+ace.require("ace/ext/language_tools");
+var editor = ace.edit("editor");
+editor.setTheme("ace/theme/textmate");
+editor
+  .session
+  .setMode("ace/mode/mysql");
+editor.setShowPrintMargin(false);
+editor.setReadOnly(true);
+editor.renderer.$cursorLayer.element.style.display = "none";
+var editor_anssql = ace.edit("editor_anssql");
+editor_anssql.setTheme("ace/theme/textmate");
+editor_anssql
+  .session
+  .setMode("ace/mode/mysql");
+editor_anssql.setShowPrintMargin(false);
+editor_anssql.setReadOnly(true);
+editor_anssql.renderer.$cursorLayer.element.style.display = "none";
+</script>
+{% endblock %}

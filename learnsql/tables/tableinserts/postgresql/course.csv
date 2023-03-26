@@ -1,0 +1,7 @@
+insert into course(cno,cname,pcno,credit) values('c01','数据库原理','c05',2);
+insert into course(cno,cname,pcno,credit) values('c02','操作系统','c05',3);
+insert into course(cno,cname,pcno,credit) values('c03','计算机网络','c05',3);
+insert into course(cno,cname,pcno,credit) values('c04','数据结构','c04',3);
+insert into course(cno,cname,pcno,credit) values('c05','编译原理','c04',2);
+insert into course(cno,cname,pcno,credit) values('c06','算法分析','c04',3);
+insert into course(cno,cname,pcno,credit) values('c07','离散数学','c04',2);

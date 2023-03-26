@@ -1,0 +1,23 @@
+{% extends "template.html" %}
+
+{% block content %}
+{% load static %}
+<div class="container">
+    <div class="hilight-exercises">
+        <div class="circle-exercise">
+            <a href="{% url 'learnsql:nav_second' 1 %}">
+                <img id="barimg" src="{% static 'imgs/sql 基础.png' %}" alt="" style="max-height: 200px;width=600px;">
+            </a>
+	</div>
+
+        <div class="circle-exercise">
+            <a href="{% url 'learnsql:nav_second' 2 %}">
+                <img id="barimg" src="{% static 'imgs/sql 经典案例.png' %}" alt="" style="max-height: 200px;width=600px;">
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+

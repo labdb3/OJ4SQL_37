@@ -1,0 +1,1 @@
+查出标价大于$1000的产品，求出这些产品的均价(按ProductModelID分组)。涉及表：Product。输出格式为(ProductModelID,avg_price[avg(ListPrice)])

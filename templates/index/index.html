@@ -1,0 +1,28 @@
+{% extends 'template.html' %}
+{% block content %}
+{% load static %}
+<div class="container">
+    <div class="hilight-exercises">
+        <div class="circle-exercise">
+            <a href="{% url 'index:index_judge' %}">
+                <img src="{% static 'imgs/oj.webp' %}" alt="SQL评测">
+            </a>
+        </div>
+        <div class="circle-exercise">
+            <a href="{% url 'learnsql:nav' %}">
+                <img src="{% static 'imgs/learn.webp' %}" alt="SQL学习园地">
+            </a>
+        </div>
+        <div class="circle-exercise">
+            <a href="{% url 'learncase:index' %}">
+                <img src="{% static 'imgs/learncase.webp' %}" alt="SQL案例学习">
+            </a>
+        </div>
+        <div class="circle-exercise">
+            <a href="{% url 'practise:index' %}">
+                <img src="{% static 'imgs/practise.webp' %}" alt="SQL实习场">
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

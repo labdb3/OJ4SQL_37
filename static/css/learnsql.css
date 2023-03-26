@@ -1,0 +1,102 @@
+.top {
+    position: absolute;
+    right: 0;
+    left: 0;
+    height: 72px;
+}
+.sidebar {
+    position: absolute;
+    top: 72px;
+    bottom: 0;
+    left: 0;
+    width: 178px;
+    border-right-width: 1px;
+    border-right-style: solid;
+}
+.content {
+    position: absolute;
+    top: 72px;
+    right: 0;
+    bottom: 0;
+    left: 200px;
+}
+table {
+    border-collapse: collapse;
+}
+
+table,
+td,
+th {
+    border: 1px solid black;
+}
+.SQLarea {
+    display: block;
+}
+.problems li {
+    font-size: 2em;
+}
+.problems li div:not(.problem-title) {
+    font-size: 0.75em;
+}
+.problem-desc-sql-container {
+    display: inline-block;
+    width: 40%;
+    vertical-align: top;
+}
+.result-table-container {
+    display: inline-block;
+    overflow: auto;
+    /* height: 20em; */
+    max-height: 20em;
+    padding: 1em;
+    border: none;
+    border-width: 1px;
+    border-style: inset;
+    vertical-align: top;
+    color: #3b434e;
+    border-radius: 0.5ex;
+    background: #daf1d8;
+    box-shadow: 1px 1px 3px #3b434e;
+    resize: both;
+
+    flex-grow: 1;
+}
+.problem-details {
+    display: flex;
+}
+.top {
+    font-size: x-large;
+    text-decoration: none;
+    color: #000;
+}
+
+.sidebar a:link {
+    color: #0000ff;
+}
+.sidebar a:visited {
+    color: #0000ff;
+}
+.sidebar a:hover {
+    color: #ff00ff;
+}
+.sidebar a:active {
+    color: #0000ff;
+}
+
+.setting {
+    z-index: 1003;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}
+
+.wapper {
+    display: flex;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 100px 100px;
+    grid-gap: 10px;
+}
+
+.wrapper > div {
+    flex: 1;
+}

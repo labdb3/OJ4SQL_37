@@ -1,0 +1,36 @@
+<div class="card mt-3">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-6">
+                <span style="color: grey;">运行时间：</span>
+                <span>{{ time }} ms</span>
+            </div>
+            {% if info %}
+
+            <div class="col-12">
+                <span style="color: grey;">提示信息：</span>
+                <span>{{ info }}</span>
+            </div>
+            {% endif %}
+        </div>
+        <div class="user_result">
+            <table class="table table-bordered table-sm">
+                <tr>
+                    {% for field in user_result.fieldNames %}
+                    <th class="fit">{{field}}</th>
+                    {% endfor %}
+                </tr>
+                {% for row in user_result.data|slice:":100" %}
+                <tr>
+                    {% for cell in row %}
+                    <td class="fit">{{cell}}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </table>
+            {% if user_result.data|length > 100 %}
+            ...
+            {% endif %}
+        </div>
+    </div>
+</div>

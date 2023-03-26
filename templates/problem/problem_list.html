@@ -1,0 +1,109 @@
+{% extends 'template.html' %}
+{% block content %}
+  <div class="card">
+    <div class="card-header">
+      <h1 class="text-center">
+        {{group.gname}}
+      </h1>
+    </div>
+    <div class="card-body">
+      {{group.description|safe|linebreaks}}
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-sm table-striped">
+          <thead>
+            <tr>
+              <th scope="col" style="width: 5%"></th>
+              <th scope="col" style="width: 10%">
+                #</th>
+              <th scope="col" style="width: 60%">
+                标题</th>
+              <th scope="col" style="width: 10%">
+                通过率</th>
+              <th scope="col" style="width: 10%">
+                难度</th>
+              <th scope="col" style="width: 5%"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for p in problems %}
+              <tr>
+                <td>
+                  <span class="text-success"></span>
+                </td>
+                <td>
+                  <span style="color: grey;">
+                    {{p.pid}}
+                  </span>
+                </td>
+                <td>
+                  <a href="{% url 'problem:problem_content_description' p.pid %}">
+                    {{p.title}}
+                  </a>
+                </td>
+                <td>
+                  <span style="color: grey;">
+                    {{p.passrate}}
+                  </span>
+                </td>
+                <td>
+                  {% if p.difficulty == 0 %}
+                    <span class="badge badge-success">
+                      未知</span>
+                  {% elif p.difficulty == 1 %}
+                    <span class="badge badge-success">
+                      简单</span>
+                  {% elif p.difficulty == 2 %}
+                    <span class="badge badge-success">
+                      中等</span>
+                  {% else %}
+                    <span class="badge badge-success">
+                      困难</span>
+                  {% endif %}
+                </td>
+                <td>
+                  {% if p.totalpass > 0 %}
+                    <span class="text-success">
+                      ✔
+                    </span>
+                  {% elif p.totalsubmit > 0 %}
+                    <span class="text-danger">
+                      ✘</span>
+                  {% else %}
+                  {% endif %}
+                </span>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="float-right">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item">
+            <a class="page-link" href="{% url 'problem:problem_list' gid=gid pno=1 %}" aria-label="Previous">
+              <span aria-hidden="true">
+                &laquo;</span>
+            </a>
+          </li>
+          {% for num in page.page_numbers %}
+            <li class="page-item{% if pno == num %} active{% endif %}">
+              <a class="page-link" href="{% url 'problem:problem_list' gid=gid pno=num %}">
+                {{ num }}
+              </a>
+            </li>
+          {% endfor %}
+          <li class="page-item">
+            <a class="page-link" href="{% url 'problem:problem_list' gid=gid pno=page.num_of_pages %}" aria-label="Next">
+              <span aria-hidden="true">
+                &raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+{% endblock %}

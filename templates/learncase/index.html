@@ -1,0 +1,33 @@
+{% extends 'template.html' %}
+{% block content %}
+{% load static %}
+
+<div class="container" style="position: absolute;left: 100px;top: 100px;">
+    <div>
+        <h1>
+            <ol>
+                <li>
+                    <a href="{{url_1}}">
+                        <h1>Python 案例学习</h1>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{url_2}}">
+                        <h1>银行案例学习</h1>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{url_3}}">
+                        <h1>数据库接口技术</h1>
+                    </a>
+                </li>
+		<li>
+		    <a href="{{url_4}}">
+		        <h1>隔离性级别</h1>
+		    </a>
+		</li>
+            </ol>
+        </h1>
+    </div>
+</div>
+{% endblock %}

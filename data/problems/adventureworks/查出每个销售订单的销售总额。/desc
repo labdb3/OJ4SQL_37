@@ -1,0 +1,1 @@
+查出每个销售订单的销售总额。涉及表：SalesOrderDetail。输出格式为(SalesOrderID,total[=sum(LineTotal)])

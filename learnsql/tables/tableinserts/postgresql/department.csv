@@ -1,0 +1,4 @@
+insert into department(dno,dname,dean) values('d01','网络所','t01');
+insert into department(dno,dname,dean) values('d02','语言所','t03');
+insert into department(dno,dname,dean) values('d03','软件所','t05');
+insert into department(dno,dname,dean) values('d04','结构所','t06');

@@ -1,0 +1,1 @@
+查出总销售额大于$10000且平均单笔销量小于3的产品。三列：ID、均价、总销售额。涉及表：SalesOrderDetail。输出格式为(ProductID,avg_price,sum_LineTotal)
