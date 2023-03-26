@@ -49,7 +49,7 @@ practise_postgres_template = """
 def read_data(fileName):
     with open(fileName, "r") as f:
         lines = f.readlines()[1:]
-        id_name = [line.strip().split(",")[:2] for line in lines]
+        id_name = [line.strip().split("\t")[:2] for line in lines]
 
     return id_name
 
@@ -176,7 +176,7 @@ def get_args():
     parser = argparse.ArgumentParser(description=description,
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument(
-        '--fileName', default="数据库选课名单.csv")
+        '--fileName', default="file.csv")
     parser.add_argument('--add_user_account',action="store_true",default=False)
     parser.add_argument('--add_user_db_learnsql',  action="store_true", default=False)
     parser.add_argument('--add_user_db_learncase',
@@ -190,9 +190,10 @@ def get_args():
 if __name__ == '__main__':
     args = get_args()
     id_name = read_data(args.fileName)
-
-    add_user_db_practise(id_name)
-    grant(id_name)
+    
+    print(id_name)
+    #add_user_db_practise(id_name)
+    #grant(id_name)
     
     # if args.add_user_account:
     #     add_user_account(id_name)
