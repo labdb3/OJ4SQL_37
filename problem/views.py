@@ -71,8 +71,10 @@ def supported_sql_types(problem):
         sql_types.append('mysql')
     if problem.postgresql:
         sql_types.append('postgresql')
-    if problem.postgresql:
-        sql_types.append('opengauss')
+    
+    # if problem.postgresql:
+       # sql_types.append('opengauss')
+   
     return sql_types
 
 
