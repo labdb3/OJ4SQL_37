@@ -3,14 +3,10 @@ import datetime
 
 import pymysql
 
-<<<<<<< HEAD
-conn = pymysql.connect(host="127.0.0.1", port=43306,
-                       user="root" ,password="root@lab3")
- 
-=======
+
 conn = pymysql.connect(host="127.0.0.1", port=43062,
         user="root" ,password="root@lab3")
->>>>>>> fix bug
+
 c = conn.cursor()
 while True:
     c.execute("show processlist")
