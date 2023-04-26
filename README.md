@@ -172,6 +172,45 @@ jupyterhub-proxy.pid  jupyterhub.sqlite  jupyterhub_config.py  jupyterhub_cookie
 (py37) root@fee96ed93219:~/jupyterhub#
 ```
 
+## 关于机器代理配置
+
+因为这个机器不能直接访问外网，这样会造成无法安装各种库，所以我们搭建了一个代理链路，将该机器的所有请求都通过实验室的另一台机器代理。
+
+原本代理服务器是 162.105.88.120，后来该机器出现了网络问题，更改为162.105.88.116。
+
+如果新的代理机器出现问题，可以按照如下教程更改新的代理服务器。
+
+### 1. 首先搭建代理机器
+
+使用 tinyproxy 配置新的代理服务器，具体教程可以参考https://blog.51cto.com/u_15278282/2931913
+
+### 2. 配置需要代理的机器
+
+使用 proxychains4 ，具体配置教程可以参考https://zhuanlan.zhihu.com/p/385463291
+
+### 3. docker 配置
+
+```sudo vim /etc/systemd/system/docker.service.d/http-proxy.conf
+sudo vim /etc/systemd/system/docker.service.d/proxy.conf
+sudo vim /etc/systemd/system/docker.service.d/proxy.conf/http-proxy.conf```
+
+更改后需要重启docker
+
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+
+### 4. 容器配置
+
+修改docker 配置后发现容器内部还是不能访问外网，后来经过在容器内配置以下环境变量
+
+export proxy="http://162.105.88.116:3128"
+export http_proxy=$proxy
+export https_proxy=$proxy
+export ftp_proxy=$proxy
+export no_proxy="localhost, 127.0.0.1, ::1"
+
+
+
 ## Fix Bugs
 
 [python - I use pymysql to execute query in MySQL, but why the process is still alive after I close the connectio
