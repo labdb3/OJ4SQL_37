@@ -2,6 +2,7 @@ import time
 import datetime
 
 import pymysql
+
 while True:
     try:
         conn = pymysql.connect(host="127.0.0.1", port=43062,
