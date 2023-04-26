@@ -27,9 +27,9 @@ def load_data(fileName, conn):
 
 
 def read_data():
-    with open("数据库选课名单.csv", "r") as f:
+    with open("file.csv", "r") as f:
         lines = f.readlines()[1:]
-        id_name = [line.strip().split(",")[:2] for line in lines]
+        id_name = [line.strip().split("\t")[:2] for line in lines]
 
     return id_name
 
@@ -69,6 +69,8 @@ def load(fileName, ids):
 if __name__ == '__main__':
     id_name = read_data()
     ids = [tuple(["stu" + str(id)]) for id, name in id_name]
-    loaded_datasets = ['movielen','TheWorldHappinessReport','xzqh','supermarketTrans']
+    ##loaded_datasets = ['movielen','TheWorldHappinessReport','xzqh','supermarketTrans']
+    ##loaded_datasets = ['movielen','TheWorldHappinessReport','xzqh','supermarketTrans',"itemscore","onestock","SPJ","titanic","application"]
+    loaded_datasets = ['application']
     for file in loaded_datasets:
         load("data/data/"+file, ids)
