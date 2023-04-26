@@ -190,6 +190,8 @@ jupyterhub-proxy.pid  jupyterhub.sqlite  jupyterhub_config.py  jupyterhub_cookie
 
 ### 3. docker 配置
 
+具体可以参考 https://note.qidong.name/2020/05/docker-proxy/
+
 ```sudo vim /etc/systemd/system/docker.service.d/http-proxy.conf
 sudo vim /etc/systemd/system/docker.service.d/proxy.conf
 sudo vim /etc/systemd/system/docker.service.d/proxy.conf/http-proxy.conf
