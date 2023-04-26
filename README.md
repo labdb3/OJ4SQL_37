@@ -192,23 +192,26 @@ jupyterhub-proxy.pid  jupyterhub.sqlite  jupyterhub_config.py  jupyterhub_cookie
 
 ```sudo vim /etc/systemd/system/docker.service.d/http-proxy.conf
 sudo vim /etc/systemd/system/docker.service.d/proxy.conf
-sudo vim /etc/systemd/system/docker.service.d/proxy.conf/http-proxy.conf```
+sudo vim /etc/systemd/system/docker.service.d/proxy.conf/http-proxy.conf
+```
 
 更改后需要重启docker
 
+```
 sudo systemctl daemon-reload
 sudo systemctl restart docker
+```
 
 ### 4. 容器配置
 
 修改docker 配置后发现容器内部还是不能访问外网，后来经过在容器内配置以下环境变量
-
+```
 export proxy="http://162.105.88.116:3128"
 export http_proxy=$proxy
 export https_proxy=$proxy
 export ftp_proxy=$proxy
 export no_proxy="localhost, 127.0.0.1, ::1"
-
+```
 
 
 ## Fix Bugs
