@@ -172,6 +172,18 @@ jupyterhub-proxy.pid  jupyterhub.sqlite  jupyterhub_config.py  jupyterhub_cookie
 (py37) root@fee96ed93219:~/jupyterhub#
 ```
 
+# 关于 jupyterhub 中 python 库
+
+因为目前只在root 用户下装了anaconda3，所以其他用户是没有办法安装python 库的，所以需要助教手动安装python 包
+
+```
+docker exec -it jupyterhub bash
+
+cd && pip install XXX
+
+chmod -R 777 /usr/local/share/anaconda3
+```
+
 ## 关于机器代理配置
 
 因为这个机器不能直接访问外网，这样会造成无法安装各种库，所以我们搭建了一个代理链路，将该机器的所有请求都通过实验室的另一台机器代理。
